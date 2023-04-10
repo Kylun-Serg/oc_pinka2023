@@ -4,3 +4,4 @@
 
 // Heading
 $_['heading_title'] = 'Фильтр';
+$_['filter_button'] = 'Применить';

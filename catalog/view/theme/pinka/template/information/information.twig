@@ -1,0 +1,34 @@
+{{ header }}
+<main class="page page__info">
+	<div class="page__header">
+		<div class="page__container">
+			<nav class="page__bredcrumbs bredcrumbs">
+				<ol class="bredcrumbs__list">
+					{% for key, breadcrumb in breadcrumbs %}
+						{% if key + 1 < breadcrumbs|length %}
+							<li class="bredcrumbs__item">
+								<a href="{{ breadcrumb.href }}" class="bredcrumbs__link">
+									{{ breadcrumb.text }}
+									<svg class="bredcrumbs__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow"></use>
+									</svg>
+								</a>
+							</li>
+						{% else %}
+							<li class="bredcrumbs__item">
+								<span class="bredcrumbs__current">
+									{{ breadcrumb.text }}
+								</span>
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ol>
+			</nav>
+			<div class="page__header-title">
+				<h1 class="page__title">{{ heading_title }}</h1>
+			</div>
+		</div>
+	</div>
+	{{ description }}
+</main>
+{{ footer }}

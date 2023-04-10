@@ -1,0 +1,212 @@
+{{ header }}
+<main class="page page__catalog">
+
+	<div class="page__header">
+		<div class="page__container">
+			<nav class="page__bredcrumbs bredcrumbs">
+				<ol class="bredcrumbs__list">
+					{% for key, breadcrumb in breadcrumbs %}
+						{% if key + 1 < breadcrumbs|length %}
+							<li class="bredcrumbs__item">
+								<a href="{{ breadcrumb.href }}" class="bredcrumbs__link">
+									{{ breadcrumb.text }}
+									<svg class="bredcrumbs__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow"></use>
+									</svg>
+								</a>
+							</li>
+						{% else %}
+							<li class="bredcrumbs__item">
+								<span class="bredcrumbs__current">
+									{{ breadcrumb.text }}
+								</span>
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ol>
+			</nav>
+			<div class="page__header-title">
+				<h1 class="page__title">{{ heading_title }}</h1>
+				<span>(16 позицій)</span>
+			</div>
+		</div>
+	</div>
+	<div class="catalog">
+		<div class="catalog__container">
+
+			{{column_left}}
+
+			<div class="catalog__content">
+				{% if products %}
+					<section class="catalog__inner">
+						<h2 style="display: none;"></h2>
+						<div class="catalog__controls">
+							<button class="filter-catalog__title" data-filter-btn>
+								<svg class="filter-catalog__title-icon">
+									<use xlink:href="@img/icons/icons.svg#filter"></use>
+								</svg>
+								Фільтр товарів
+							</button>
+							<div class="select">
+								<svg class="select__label-icon">
+									<use xlink:href="@img/icons/icons.svg#select"></use>
+								</svg>
+								<label for="products" class="select__label">
+
+									Сортування:</label>
+
+								<select name="products" id="products">
+									<option value="">За замовчуванням</option>
+									<option value="price">За зростанням ціни</option>
+									<option value="rating">За рейтингом</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="catalog__products">
+							{% for product in products %}
+								<article class="product-card swiper-slide module__card" id="product_{{ product.product_id }}">
+									<a href=" {{ product.href }} " class=" product-card__image">
+										<img class="product-card__image-main" src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}">
+										<img class="product-card__image-additional" src="{{ product.additional_image }}" alt="{{ product.name }}" title="{{ product.name }}">
+									</a>
+									<div class="product-card__content">
+										<div class="body-product__weight">
+											{% if product.options %}
+												{% for option in product.options %}
+													{% if option.type == 'radio' %}
+														<div class="product-card__weight product-weight" id="input-option{{ option.product_option_id }}">
+															{% for key, option_value in option.product_option_value %}
+																<label class="product-weight__label">
+																	<input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" class="product-weight__input" {% if key == 0 %} checked {% endif %}/>
+
+																	<div class="product-weight__value">
+																		{{ option_value.name }}
+																	</div>
+																</label>
+															{% endfor %}
+														</div>
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										</div>
+										<h3 class="product-card__title">
+											<a href="{{ product.href }}">{{ product.name }}</a>
+										</h3>
+										<div class="product-card__rating rating-card">
+											<svg class="rating-card__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#rating"></use>
+											</svg>
+											5.0
+											<a href="#">(40 відгуків)</a>
+										</div>
+									</div>
+									<div class="product-card__footer">
+										<div class="product-card__price">{{ product.price }}</div>
+										<div class="product-card__buttons">
+
+											<button type="button" onclick="wishlist.add('{{ product.product_id }}');" class="product-card__button button-card__favorite">
+												<svg class="favorite__icon">
+													<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#favorite"></use>
+												</svg>
+											</button>
+
+											<button type="button" onclick="cart.add('{{ product.product_id }}');" class="product-card__button button-card__cart">
+												<svg class="cart__icon">
+													<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#cart"></use>
+												</svg>
+											</button>
+										</div>
+									</div>
+								</article>
+							{% endfor %}
+						</div>
+
+						<div class="catalog__footer">
+							<div class="catalog__footer-pagination pagination">
+								<button class="pagination__btn pagination__btn-left">
+									<svg class="pagination__icon">
+										<use xlink:href="@img/icons/icons.svg#arrow"></use>
+									</svg>
+								</button>
+								<ul class="pagination__list">
+									<li class="pagination__item">
+										<a href="#" class="pagination__link">1</a>
+									</li>
+									<li class="pagination__item">
+										<a href="#" class="pagination__link pagination__link_active">2</a>
+									</li>
+									<li class="pagination__item">
+										<a href="#" class="pagination__link">...</a>
+									</li>
+									<li class="pagination__item">
+										<a href="#" class="pagination__link">12</a>
+									</li>
+								</ul>
+								<button class="pagination__btn pagination__btn-right">
+									<svg class="pagination__icon">
+										<use xlink:href="@img/icons/icons.svg#arrow"></use>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</section>
+				{% else %}
+					{{text_empty}}
+				{% endif %}
+
+				<div class="page__description description-page">
+					<h2 class="description-page__title">Переваги твердого шампуню:</h2>
+					{% if description %}
+						{{ description }}
+					{% endif %}
+				</div>
+
+				<section class="page__questions questions-page">
+					<h2 class="questions-page__title">Питання які найчастіше запитують про тверді шампуні</h2>
+					<section class="questions-page__item">
+						<div class="questions-page__hedaing">
+							<svg class="questions-page__icon">
+								<use xlink:href="@img/icons/icons.svg#question"></use>
+							</svg>
+							<h3>Який шампунь краще підійде для фарбованого волосся?</h3>
+							<svg class="questions-page__icon-arrow">
+								<use xlink:href="@img/icons/icons.svg#arrow"></use>
+							</svg>
+						</div>
+						<div class="questions-page__content">
+							<p>Односпальне ліжко — оптимальний варіант для сну однієї людини. Вироби представлені в декількох
+																																																								                    стандартних розмірах по ширині: 80-90, рідше — 100 сантиметрів.</p>
+							<p>Полуторні ліжка нагадують односпальні, але зі збільшеною шириною — в середньому 120-140
+																																																								                    сантиметрів. Меблі підійдуть для одиночного сну людям з великою статурою або для худорлявої пари.
+							</p>
+							<p>Односпальне ліжко — оптимальний варіант для сну однієї людини. Вироби представлені в декількох
+																																																								                    стандартних розмірах по ширині: 80-90, рідше — 100 сантиметрів.</p>
+						</div>
+					</section>
+					<section class="questions-page__item">
+						<div class="questions-page__hedaing">
+							<svg class="questions-page__icon">
+								<use xlink:href="@img/icons/icons.svg#question"></use>
+							</svg>
+							<h3>Який шампунь краще підійде для фарбованого волосся?</h3>
+							<svg class="questions-page__icon-arrow">
+								<use xlink:href="@img/icons/icons.svg#arrow"></use>
+							</svg>
+						</div>
+						<div class="questions-page__content">
+							<p>Односпальне ліжко — оптимальний варіант для сну однієї людини. Вироби представлені в декількох
+																																																								                    стандартних розмірах по ширині: 80-90, рідше — 100 сантиметрів.</p>
+							<p>Полуторні ліжка нагадують односпальні, але зі збільшеною шириною — в середньому 120-140
+																																																								                    сантиметрів. Меблі підійдуть для одиночного сну людям з великою статурою або для худорлявої пари.
+							</p>
+							<p>Односпальне ліжко — оптимальний варіант для сну однієї людини. Вироби представлені в декількох
+																																																								                    стандартних розмірах по ширині: 80-90, рідше — 100 сантиметрів.</p>
+						</div>
+					</section>
+				</section>
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}
