@@ -1,0 +1,67 @@
+<article class="module">
+	<div class="module__container">
+		<div class="module__hedaer">
+			<h2 class="section-title">{{ heading_title }}</h2>
+		</div>
+		<div class="swiper module__inner popular-slider">
+			<div class="swiper-wrapper module__wrapper">
+				{% for product in products %}
+					<article class="product-card swiper-slide module__card" id="product_{{ product.product_id }}">
+						<a href=" {{ product.href }} " class=" product-card__image">
+							<img class="product-card__image-main" src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}">
+							<img class="product-card__image-additional" src="{{ product.additional_image }}" alt="{{ product.name }}" title="{{ product.name }}">
+						</a>
+						<div class="product-card__content">
+							<div class="body-product__weight">
+								{% if product.options %}
+									{% for option in product.options %}
+										{% if option.type == 'radio' %}
+											<div class="product-card__weight product-weight" id="input-option{{ option.product_option_id }}">
+												{% for key, option_value in option.product_option_value %}
+													<label class="product-weight__label">
+														<input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" class="product-weight__input" {% if key == 0 %} checked {% endif %}/>
+
+														<div class="product-weight__value">
+															{{ option_value.name }}
+														</div>
+													</label>
+												{% endfor %}
+											</div>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</div>
+							<h3 class="product-card__title">
+								<a href="{{ product.href }}">{{ product.name }}</a>
+							</h3>
+							<div class="product-card__rating rating-card">
+								<svg class="rating-card__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#rating"></use>
+								</svg>
+								5.0
+								<a href="#">(40 відгуків)</a>
+							</div>
+						</div>
+						<div class="product-card__footer">
+							<div class="product-card__price">{{ product.price }}</div>
+							<div class="product-card__buttons">
+
+								<button type="button" onclick="wishlist.add('{{ product.product_id }}');" class="product-card__button button-card__favorite">
+									<svg class="favorite__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#favorite"></use>
+									</svg>
+								</button>
+
+								<button type="button" onclick="cart.add('{{ product.product_id }}');" class="product-card__button button-card__cart">
+									<svg class="cart__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#cart"></use>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</article>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</article>

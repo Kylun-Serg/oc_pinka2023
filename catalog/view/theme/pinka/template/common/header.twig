@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ title }}</title>
+		{% if robots %}
+			<meta name="robots" content="{{ robots }}"/>
+		{% endif %}
+		<base href="{{ base }}"/>
+		{% if description %}
+			<meta name="description" content="{{ description }}"/>
+		{% endif %}
+		{% if keywords %}
+			<meta name="keywords" content="{{ keywords }}"/>
+		{% endif %}
+		<meta property="og:title" content="{{ title }}"/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="{{ og_url }}"/>
+		{% if og_image %}
+			<meta property="og:image" content="{{ og_image }}"/>
+		{% else %}
+			<meta property="og:image" content="{{ logo }}"/>
+		{% endif %}
+		<meta property="og:site_name" content="{{ name }}"/>
+
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+		<script src="catalog/view/theme/pinka/assets/js/app.min.js?_v=20230403132800"></script>
+
+		{% for style in styles %}
+			<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+		{% endfor %}
+		{% for script in scripts %}
+			<script src="{{ script }}" type="text/javascript"></script>
+		{% endfor %}
+		<script src="catalog/view/theme/pinka/assets/js/common.js" type="text/javascript"></script>
+
+		{% for link in links %}
+			<link href="{{ link.href }}" rel="{{ link.rel }}"/>
+		{% endfor %}
+		<link rel="stylesheet" href="catalog/view/theme/pinka/assets/css/style.min.css?_v=20230403132800">
+
+		{% for analytic in analytics %}
+			{{ analytic }}
+		{% endfor %}
+
+
+	</head>
+	<body>
+		<div class="wrapper">
+			<header class="header">
+
+				<div class="modal-ovelay"></div>
+
+				{{ cart }}
+
+				{{ menu }}
+
+				<div class="header__top top-header">
+					<div class="top-header__container">
+
+						<button type="button" class="menu-top-header__button burger" data-burger-header>
+							<span class="burger__line"></span>
+						</button>
+
+						<div class="top-header__inner" data-burger-menu>
+
+							<nav class="top-header__menu menu-top-header">
+								{% if informations %}
+									<ul class="menu-top-header__list">
+										{% for information in informations %}
+											<li class="menu-top-header__item">
+												<a href="{{ information.href }}" class="menu-top-header__link">{{ information.title }}</a>
+											</li>
+										{% endfor %}
+									</ul>
+								{% endif %}
+							</nav>
+
+							<nav class="top-header__additional-menu">
+								<ul class="menu-bottom-header__list">
+									<li class="menu-bottom-header__item">
+										<a href="#" class="menu-bottom-header__link">
+											<svg class="menu-bottom-header__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#stock"></use>
+											</svg>
+											Акції</a>
+									</li>
+									<li class="menu-bottom-header__item">
+										<a href="#" class="menu-bottom-header__link">
+											<svg class="menu-bottom-header__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#sales"></use>
+											</svg>
+											Розпродаж</a>
+									</li>
+								</ul>
+							</nav>
+
+							<div class="top-header__contacts contacts-top-header">
+
+								<div class="contacts-top-header__social social-top-header">
+									<span class="social-top-header__name">{{ text_social }}</span>
+									<a href="https://www.instagram.com/_pinka_shop_/" class="social-top-header__link" title="Наш Instagram" target="_blank">
+										<svg class="contacts-top-header__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#instagram"></use>
+										</svg>
+									</a>
+									<a href="https://www.facebook.com/pinkaShopSoap/" class="social-top-header__link" title="Наш Facebook" target="_blank">
+										<svg class="contacts-top-header__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#facebook"></use>
+										</svg>
+									</a>
+								</div>
+
+								<div class="contacts-top-header__messengers messengers-top-header">
+									<span class="messengers-top-header__name">{{ text_messages }}</span>
+									<a href="viber://chat?number=%2B380665703591" class="messengers-top-header__link" title="Наш Viber">
+										<svg class="contacts-top-header__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#viber"></use>
+										</svg>
+									</a>
+									<a href="#" class="messengers-top-header__link" title="Наш Telegram">
+										<svg class="contacts-top-header__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#telegram"></use>
+										</svg>
+									</a>
+								</div>
+
+								<div class="contacts-top-header__phone phone-top-header">
+									<div class="phone-top-header__title">Наші телефони:</div>
+									<ul class="phone-top-header__list">
+										<li class="phone-top-header__item">
+											<a href="tel:+380665703591" class="phone-top-header__link">
+												<svg class="phone-top-header__icon">
+													<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#phone"></use>
+												</svg>
+												066 570-35-91
+											</a>
+										</li>
+										<li class="phone-top-header__item">
+											<a href="tel:+380682106057" class="phone-top-header__link">
+												<svg class="phone-top-header__icon">
+													<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#phone"></use>
+												</svg>
+												068 210-60-57
+											</a>
+										</li>
+									</ul>
+								</div>
+								{{ language }}
+							</div>
+						</div>
+
+
+						<div class="top-header__actions actions-header">
+
+							<a href="tel:+380665703591" class="phone-header__btn phone-btn" title="Зробити дзвінок">
+								<svg class="phone-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#phone"></use>
+								</svg>
+							</a>
+
+							<a href="#" class="actions-header__btn btn-favorite actions-btn">
+								<svg class="actions-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#favorite"></use>
+								</svg>
+								<span class="actions-btn__count">5</span>
+							</a>
+
+							<a type="button" class="actions-header__btn btn-cart actions-btn">
+								<svg class="actions-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#cart"></use>
+								</svg>
+								<span class="actions-btn__count">12</span>
+							</a>
+
+							<a href="#" class="actions-header__btn btn-user actions-btn">
+								<svg class="actions-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#user"></use>
+								</svg>
+							</a>
+
+						</div>
+
+					</div>
+				</div>
+
+				<div class="header__body body-header">
+
+					<div class="body-header__container">
+						{% if logo %}
+							{% if home == og_url %}
+								<picture>
+									<source srcset="catalog/view/theme/pinka/assets/img/logo.png" type="image/png" media="(min-width: 576px)">
+									<source srcset="catalog/view/theme/pinka/assets/img/logox576.png" type="image/png" media="(max-width: 576px)">
+									<img src="catalog/view/theme/pinka/assets/img/logo.png" title="{{ name }}" alt="{{ name }}">
+								</picture>
+							{% else %}
+								<a href="{{ home }}" class="body-header__logo logo" title="Логотип компанії Pinka">
+									<picture>
+										<source srcset="catalog/view/theme/pinka/assets/img/logo.png" type="image/png" media="(min-width: 576px)">
+										<source srcset="catalog/view/theme/pinka/assets/img/logox576.png" type="image/png" media="(max-width: 576px)">
+										<img src="catalog/view/theme/pinka/assets/img/logo.png" title="{{ name }}" alt="{{ name }}">
+									</picture>
+								</a>
+							{% endif %}
+						{% endif %}
+
+						<button type="button" class="body-header__btn btn btn-catalog" data-catalog-btn>
+							<svg class="btn-catalog__icon">
+								<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#catalog"></use>
+							</svg>
+							Каталог
+						</button>
+
+						{{ search }}
+
+						<div class="body-header__actions actions-header">
+
+							<div class="actions-header__phone phone-header">
+								<div class="phone-header__main">
+									<a href="tel:+38066573591" class="phone-header__btn phone-btn" title="{{text_phone}}">
+										<svg class="phone-btn__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#phone"></use>
+										</svg>
+									</a>
+									<div class="phone-header__info">
+										<span class="phone-header__time">{{ text_time }}</span>
+										<a href="tel:+38066573591" class="phone-header__phone" title="{{text_phone}}">066 570-35-91</a>
+									</div>
+									<button type="button" class="phone-arrow-btn">
+										<svg class="phone-arrow-btn__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow-down"></use>
+										</svg>
+									</button>
+								</div>
+								<div class="phone-header__modal modal-header-phone">
+									<ul class="modal-header-phone__list">
+										<li class="modal-header-phone__item">
+											<a href="tel:+38066573591" class="modal-header-phone__link" title="{{text_phone}}">
+												<svg class="modal-header-phone__icon">
+													<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#phone"></use>
+												</svg>
+												066 570-35-91</a>
+										</li>
+										<li class="modal-header-phone__item">
+											<a href="tel:+380682106057" class="modal-header-phone__link" title="{{text_phone}}">
+												<svg class="modal-header-phone__icon">
+													<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#phone"></use>
+												</svg>
+												068 210-60-57</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<a href="{{ wishlist }}" class="actions-header__btn btn-favorite actions-btn" title="{{ text_wishlist }}">
+								<svg class="actions-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#favorite"></use>
+								</svg>
+								<span class="actions-btn__count">5</span>
+							</a>
+
+							<button class="actions-header__btn btn-cart actions-btn">
+								<svg class="actions-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#cart"></use>
+								</svg>
+								<span class="actions-btn__count" data-cart-count>0</span>
+							</button>
+
+							<a href="{{ account }}" class="actions-header__btn btn-user actions-btn" title="{{ text_account }}">
+								<svg class="actions-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#user"></use>
+								</svg>
+							</a>
+
+						</div>
+
+					</div>
+				</div>
+
+				<div class="header__bottom bottom-header">
+					<div class="bottom-header__container">
+						<nav class="bottom-header__menu menu-bottom-header">
+							<ul class="menu-bottom-header__list">
+								<li class="menu-bottom-header__item">
+									<a href="#" class="menu-bottom-header__link">
+										<svg class="menu-bottom-header__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#stock"></use>
+										</svg>
+										Акції</a>
+								</li>
+								<li class="menu-bottom-header__item">
+									<a href="#" class="menu-bottom-header__link">
+										<svg class="menu-bottom-header__icon">
+											<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#sales"></use>
+										</svg>
+										Розпродаж</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="bottom-header__notification">
+							<div class="notification-header__inner">
+								<p class="notification-header__text" data-notification></p>
+								<button type="submit" class="notification-header__btn" data-close-notification>
+									<svg class="notification-header__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#close"></use>
+									</svg>
+								</button>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</header>

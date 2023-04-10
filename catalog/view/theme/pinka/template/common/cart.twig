@@ -1,0 +1,80 @@
+<div class="modal-card">
+	<div class="modal-card__inner">
+		<div class="modal-card__header">
+			<div class="modal-card__title">Ваш кошик -
+				<span class="modal-card__count">{{ text_items }}</span>
+			</div>
+			<button type="button" class="close-btn">
+				<svg class="close-btn__icon">
+					<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#close"></use>
+				</svg>
+			</button>
+		</div>
+
+		<div class="modal-card__body">
+			{% if products or vouchers %}
+				<div class="modal-card__content scroll-container-y">
+					{% for key, product in products %}
+
+						<div class="modal-card__product product-card-modal">
+							{% if product.thumb %}
+								<img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="product-card-modal__image">
+							{% endif %}
+							<div class="product-card-modal__content">
+								<a href="{{ product.href }}" class="product-card-modal__title">{{ product.name }}</a>
+
+								{% if product.option %}
+									<div class="product-card__weight product-card-modal__weight">
+										{% for option in product.option %}
+											<span class="weight_active">
+												{{ option.value }}</span>
+										{% endfor %}
+									</div>
+								{% endif %}
+
+								<div class="product-card-modal__footer">
+									<div class="product-card-modal__price">{{ product.total }}</div>
+									<div class="product-card-modal__counter counter" data-counter>
+										<button type="button" class="counter__control" data-action="minus" onclick="updateCart('{{ product.cart_id }}', 'minus', event);">
+											<svg class="counter__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#minus"></use>
+											</svg>
+										</button>
+										<div class="counter__input">
+											<input type="text" name="{{ product.cart_id }}" value="{{ product.quantity }}" class="counter__input-quantity" placeholder="{{ product.quantity }}">
+										</div>
+										<button type="button" class="counter__control" data-action="plus" onclick="updateCart('{{ product.cart_id }}', 'plus', event);">
+											<svg class="counter__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#plus"></use>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</div>
+							<button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="product-card-modal__close">
+								<svg class="close-btn__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#close"></use>
+								</svg>
+							</button>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="modal-card__footer footer-modal-card">
+					{% for total in totals %}
+						{% if loop.last %}
+							<div class="footer-modal-card__price">{{ total.title }}
+								<span class="footer-modal-card__price-current">{{ total.text }}</span>
+							</div>
+						{% endif %}
+					{% endfor %}
+					<div class="footer-modal-card__buttons">
+						<a href="{{ checkout }}" class="footer-modal-card__button btn btn-large">{{ text_checkout }}</a>
+						<button type="button" class="footer-modal-card__button btn btn-large" data-close>Продовжити покупки</button>
+					</div>
+				</div>
+			{% else %}
+				<p>{{ text_empty }}</p>
+			{% endif %}
+		</div>
+	</div>
+</div>

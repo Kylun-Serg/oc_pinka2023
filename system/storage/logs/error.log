@@ -1,0 +1,1 @@
+2023-04-03 8:05:52 - PHP Warning:  mysqli::__construct(): (HY000/1049): Unknown database 'pinka20' in C:\OpenServer\domains\pinka.in.ua\system\library\db\mysqli.php on line 7

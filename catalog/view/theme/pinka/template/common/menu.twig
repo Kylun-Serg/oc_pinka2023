@@ -1,0 +1,27 @@
+{% if categories %}
+	<div class="modal-category">
+		<div class="modal-category__inner">
+			<div class="modal-category__header">
+				<div class="modal-category__title">{{ text_category }}</div>
+				<button type="button" class="close-btn">
+					<svg class="close-btn__icon">
+						<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#close"></use>
+					</svg>
+				</button>
+			</div>
+			<nav class="modal-category__content content-category">
+				<ul class="content-category__list">
+					{% for category in categories %}
+						<li class="content-category__item">
+							<img class="content-category__image" src="{{ category.thumb }}" alt="{{ category.name }}">
+							<a href="{{ category.href }}" class="content-category__link">{{ category.name }}</a>
+							<svg class="content-category__icon">
+								<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#shopping"></use>
+							</svg>
+						</li>
+					{% endfor %}
+				</ul>
+			</nav>
+		</div>
+	</div>
+{% endif %}

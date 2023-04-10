@@ -1,0 +1,379 @@
+{{header}}
+<main class="page page__product">
+	<div class="page__container">
+		<div class="page__header">
+			<nav class="page__bredcrumbs bredcrumbs">
+				<ol class="bredcrumbs__list">
+					{% for key, breadcrumb in breadcrumbs %}
+						{% if key + 1 < breadcrumbs|length %}
+							<li class="bredcrumbs__item">
+								<a href="{{ breadcrumb.href }}" class="bredcrumbs__link">
+									{{ breadcrumb.text }}
+									<svg class="bredcrumbs__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow"></use>
+									</svg>
+								</a>
+							</li>
+						{% else %}
+							<li class="bredcrumbs__item">
+								<span class="bredcrumbs__current">
+									{{ breadcrumb.text }}
+								</span>
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ol>
+			</nav>
+		</div>
+		<div class="product">
+			<div class="product__header">
+				{% if thumb or images %}
+					<div class="product__slider slider-product">
+						<div class="slider-product__main main-product-slider swiper">
+							<div class="swiper-wrapper main-product-slider__wrapper">
+								{% for image in images %}
+									<div class="main-product-slider__slide swiper-slide">
+										<img class="main-product-slider__image" src=" {{ image.thumb }} " alt="{{ heading_title }}" title="{{ heading_title }}">
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="slider-product__thumb thumb-product-slider swiper">
+							<div class="thumb-product-slider__wrapper swiper-wrapper">
+								{% for image in images %}
+									<div class="thumb-product-slider__slide swiper-slide">
+										<img class="thumb-product-slider__image" src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}">
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				<div class="product__content content-product">
+					<div class="content-product__header header-product">
+						<h1 class="header-product__title">{{ heading_title }}</h1>
+						<div class="header-product__row">
+							<span class="header-product__availability">
+								<svg class="header-product__availability-icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#availability"></use>
+								</svg>
+								{{ stock }}
+							</span>
+							<div class="header-product__review review-header-product">
+								<div class="review-header-product__rating rating">
+									{% for i in 1..5 %}
+										{% if rating < i %}
+											<svg class="rating__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#rating"></use>
+											</svg>
+										{% else %}
+											<svg class="rating__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#rating"></use>
+											</svg>
+										{% endif %}
+									{% endfor %}
+								</div>
+								<a href="#" class="review-header-product__review">
+									<svg class="review-header-product__review-icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#chat"></use>
+									</svg>
+									{{ reviews }}
+								</a>
+							</div>
+							<div class="header-product__model">
+								{{ text_model }}
+								<span>{{ model }}</span>
+							</div>
+						</div>
+					</div>
+					<div class="content-product__body body-product" id="product">
+						<div class="body-product__header">
+							{% if price %}
+								<div class="body-product__price">{{ price }}.</div>
+							{% endif %}
+							<button class="body-product__favorite">
+								<div class="body-product__favorite-caircle">
+									<svg class="body-product__favorite-icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#favorite"></use>
+									</svg>
+								</div>
+								<span>В обране</span>
+							</button>
+						</div>
+
+						<div class="body-product__weight">
+							{% if options %}
+								{% for option in options %}
+									{% if option.type == 'radio' %}
+
+										<div class="product-weight__title">
+											<svg class="product-weight__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#question"></use>
+											</svg>
+											{{ option.name }}:
+										</div>
+										<div class="product-card__weight product-weight" id="input-option{{ option.product_option_id }}">
+											{% for key, option_value in option.product_option_value %}
+												<label class="product-weight__label">
+													<input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" class="product-weight__input" {% if key == 0 %} checked {% endif %}>
+													<div class="product-weight__value">
+														{{ option_value.name }}
+													</div>
+												</label>
+											{% endfor %}
+										</div>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						</div>
+
+
+						<div class="body-product__actions actions-body-product">
+							<div class="actions-body-product__counter counter">
+								<button class="counter__control">
+									<svg class="counter__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#minus"></use>
+									</svg>
+								</button>
+								<div class="counter__input">
+									<input type="text" name="quantity" value="{{ minimum }}" class="counter__input__quantity" id="input-quantity">
+									<input type="hidden" name="product_id" value="{{ product_id }}"/>
+								</div>
+								<button class="counter__control">
+									<svg class="counter__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#plus"></use>
+									</svg>
+								</button>
+							</div>
+							<button type="button" class="btn" id="button-cart">
+								<svg class="actions-body-product__icon">
+									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#cart"></use>
+								</svg>
+								{{ button_cart }}
+							</button>
+						</div>
+					</div>
+					<div class="content-product__footer footer-product">
+						<div class="footer-product__social social-footer-product">
+							<div class="social-footer-product__title">Поділитися товаром:</div>
+							<div class="social-footer-product__list">
+								<a href="#" class="social-footer-product__link">
+									<svg class="social-footer-product__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#facebook"></use>
+									</svg>
+								</a>
+								<a href="#" class="social-footer-product__link">
+									<svg class="social-footer-product__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#instagram"></use>
+									</svg>
+								</a>
+							</div>
+						</div>
+						<div class="footer-product__info info-footer-product">
+							<div class="info-footer-product__inner">
+								<div class="info-footer-product__item">
+									<svg class="info-footer-product__icon">
+										<use xlink:href="img/icons/icons.svg#marker"></use>
+									</svg>
+									<div class="info-footer-product__content">
+										<div class="info-footer-product__title">Доставка</div>
+										<p class="info-footer-product__text">Доставка по всій Україні</p>
+										<a href="#" class="info-footer-product__link arrow-link">Детальніше
+											<svg class="arrow-link__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow-link"></use>
+											</svg>
+										</a>
+									</div>
+								</div>
+								<div class="info-footer-product__item">
+									<svg class="info-footer-product__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#pay"></use>
+									</svg>
+									<div class="info-footer-product__content">
+										<div class="info-footer-product__title">Оплата</div>
+										<p class="info-footer-product__text">За допомогою карти, або при отриманні</p>
+										<a href="#" class="info-footer-product__link arrow-link">Детальніше
+											<svg class="arrow-link__icon">
+												<use xlink:href="img/icons/icons.svg#arrow-link"></use>
+											</svg>
+										</a>
+									</div>
+								</div>
+								<div class="info-footer-product__item">
+									<svg class="info-footer-product__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#help"></use>
+									</svg>
+									<div class="info-footer-product__content">
+										<div class="info-footer-product__title">Підтримка</div>
+										<p class="info-footer-product__text">Швидко консультуємо у будь-якому питанні</p>
+										<a href="#" class="info-footer-product__link arrow-link">Детальніше
+											<svg class="arrow-link__icon">
+												<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow-link"></use>
+											</svg>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product__info info-product">
+				<div class="info-product__tabs tabs" data-tabs="tab">
+					<ul class="info-product__tabs-nav tabs__nav">
+						<li class="info-product__tabs-item tabs__item">
+							<button class="info-product__tabs-btn tabs__btn" type="button">{{ tab_description }}</button>
+						</li>
+						<li class="info-product__tabs-item tabs__item">
+							<button class="info-product__tabs-btn tabs__btn">{{tab_review}}</button>
+						</li>
+					</ul>
+					<div class="info-product__tabs-content tabs__content">
+						<div class="info-product__tabs-panel tabs__panel">
+							{{ description }}
+						</div>
+						<div class="info-product__tabs-panel tabs__panel">
+							<div class="review">
+								<div class="review__item">
+									<article class="review__question">
+										<footer class="review__footer">
+											<div class="review__user">
+												<div class="review__circle">
+													<svg class="review__icon">
+														<use xlink:href="img/icons/icons.svg#review-user"></use>
+													</svg>
+												</div>
+												<div class="review__name">Олена Вермієнко</div>
+											</div>
+											<div class="review__date">25.01.2022</div>
+										</footer>
+										<div class="review__content">
+											<p>Хочу отметить слаженную и четкую работу всех сотрудников , с кем пришлось контактировать
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        при выборе и покупке дивана Orange-Line Родео SF17-LX6-PLNGR. Огромную помощь при выборе
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        оказала специалист по продажам Ульяна Лукащук, которая провела со мной не один час( выбор
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        был непростым, т.к диван необходимо было приобрести для пожилого лежачего больного). А так
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        же хочу поблагодарить за понимание и человеческий подход сотрудника отдела логистики Елькина
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        Игоря, который смог найти возможность для первоочередной доставки по городу, в самые
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        кратчайшие сроки. А также огромное спасибо специалистам доставки в конечную точку Николаю и
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        Вячеславу за их нелегкий труд в сложных условиях.</p>
+										</div>
+										<div class="review__rating">
+											Оцінка:
+											<div class="rating">
+												<svg class="rating__icon">
+													<use xlink:href="img/icons/icons.svg#rating"></use>
+												</svg>
+												<svg class="rating__icon">
+													<use xlink:href="img/icons/icons.svg#rating"></use>
+												</svg>
+												<svg class="rating__icon">
+													<use xlink:href="img/icons/icons.svg#rating"></use>
+												</svg>
+												<svg class="rating__icon">
+													<use xlink:href="img/icons/icons.svg#rating"></use>
+												</svg>
+												<svg class="rating__icon">
+													<use xlink:href="img/icons/icons.svg#rating"></use>
+												</svg>
+											</div>
+										</div>
+									</article>
+									<article class="review__answer">
+										<footer class="review__footer">
+											<div class="review__user">
+												<div class="review__circle">
+													<svg class="review__icon">
+														<use xlink:href="img/icons/icons.svg#review-user"></use>
+													</svg>
+												</div>
+												<div class="review__name">Адміністратор</div>
+											</div>
+										</footer>
+										<div class="review__content">
+											<p>Хочу отметить слаженную и четкую работу всех сотрудников , с кем пришлось контактировать
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                        при выборе и покупке дивана
+											</p>
+										</div>
+									</article>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="info-product__callback callback-info-product">
+					<div class="callback-info-product__title">Залиште свій відгук про даний товар</div>
+					<form class="callback-info-product__form" action="">
+						<div class="callback-info-product__row">
+							<input type="text" class="callback-info-product__input" placeholder="Ваше ім'я та прізвище">
+						</div>
+						<div class="callback-info-product__row">
+							<input type="text" class="callback-info-product__input" placeholder="E-mail (необов’язково)">
+						</div>
+						<div class="callback-info-product__row">
+							<textarea class="callback-info-product__textarea" placeholder="Відгук"></textarea>
+						</div>
+						<div class="callback-info-product__evaluation">
+							<span>Ваша оцінка:</span>
+						</div>
+						<button class="callback-info-product__btn btn">Залишити відгук</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<script
+	type="text/javascript">
+	<!--
+	$('#button-cart').on('click', function () {
+$.ajax({
+url: 'index.php?route=checkout/cart/add',
+type: 'post',
+data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+dataType: 'json',
+beforeSend: function () {},
+complete: function () {},
+success: function (json) {
+
+if (json['error']) {
+if (json['error']['option']) {
+for (i in json['error']['option']) {
+var element = $('#input-option' + i.replace('_', '-'));
+
+if (element.parent().hasClass('input-group')) {
+element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+} else {
+element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+}
+}
+}
+
+if (json['error']['recurring']) {
+$('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
+}
+
+// Highlight any found errors
+$('.text-danger').parent().addClass('has-error');
+}
+
+if (json['success']) {
+$('[data-cart-count]').each(function () {
+$(this).html(json['total']);
+});
+
+$('.modal-card__count').html(json['total']);
+
+$('.modal-card__body').load('index.php?route=common/cart/info .modal-card__body');
+
+addCardOverlay();
+}
+},
+error: function (xhr, ajaxOptions, thrownError) {
+alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+}
+});
+});
+//
+	-->
+</script>
+{{footer}}
