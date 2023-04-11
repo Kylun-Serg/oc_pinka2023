@@ -1,0 +1,59 @@
+{{ header }}
+<main class="page page__autorization">
+	<div class="page__header">
+		<div class="page__container">
+			<nav class="page__bredcrumbs bredcrumbs">
+				<ol class="bredcrumbs__list">
+					<li class="bredcrumbs__item">
+						<a href="#" class="bredcrumbs__link">
+							Головна
+							<svg class="bredcrumbs__icon">
+								<use xlink:href="img/icons/icons.svg#arrow"></use>
+							</svg>
+						</a>
+					</li>
+					<li class="bredcrumbs__item">
+						<span class="bredcrumbs__current">Натуральний твердий шампунь</span>
+					</li>
+				</ol>
+			</nav>
+			<div class="page__header-title">
+				<h1 class="page__title">Авторизація</h1>
+			</div>
+		</div>
+	</div>
+	<div class="autorization-page" id="account-login">
+		<div class="autorization-page__container">
+			<div class="autorization-page__wrap">
+				<div class="info-page__section autorization-page__login login-autorization-page">
+					<h4 class="login-autorization-page__title">{{ text_returning_customer }}</h4>
+					<form action="{{ action }}" method="post" enctype="multipart/form-data">
+						<div class="form-row__box">
+							<div class="form-row">
+								<input type="email" name="email" value="{{ email }}" required class="form-row__input" placeholder=" " id="input-email">
+								<label for="input-email" class="form-row__label">{{ entry_email }}</label>
+							</div>
+							<div class="form-row">
+								<input type="password" required class="form-row__input" placeholder=" " name="password" value="{{ password }}" id="input-password">
+								<label for="input-password" class="form-row__label">{{ entry_password }}</label>
+							</div>
+						</div>
+						<a href="{{ forgotten }}" class="form-row__forgot">{{ text_forgotten }}</a>
+						<button type="submit" class="btn">{{ button_login }}</button>
+						{% if redirect %}
+							<input type="hidden" name="redirect" value="{{ redirect }}"/>
+						{% endif %}
+					</form>
+				</div>
+				<div class="info-page__section autorization-page__login login-autorization-page">
+					<h4 class="login-autorization-page__title">{{ text_new_customer }}</h4>
+					<picture>
+						<source srcset="catalog/view/theme/pinka/assets/img/profile/autorization.webp" type="image/webp"><img class="login-autorization-page__image" src="./img/profile/autorization.png" alt="image"></picture>
+					<p class="login-autorization-page__text">{{ text_register_account }}</p>
+					<a href="{{ register }}" class="btn">{{ text_register }}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}

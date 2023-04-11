@@ -286,6 +286,14 @@ class ControllerProductProduct extends Controller
 
 			$results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
 
+			$data['all_images'] = array();
+
+			$data['all_images'][] = $data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height'));
+
+			foreach ($results as $image) {
+				$data['all_images'][] = $data['thumb'] = $this->model_tool_image->resize($image['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height'));
+			}
+
 			foreach ($results as $result) {
 				$data['images'][] = array(
 					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
