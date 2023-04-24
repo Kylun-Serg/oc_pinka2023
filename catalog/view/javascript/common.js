@@ -181,10 +181,10 @@ var cart = {
 			data: 'key=' + key + '&quantity=' + (typeof(quantity) != 'undefined' ? quantity : 1),
 			dataType: 'json',
 			beforeSend: function() {
-				$('#cart > button').button('loading');
+				// $('#cart > button').button('loading');
 			},
 			complete: function() {
-				$('#cart > button').button('reset');
+				// $('#cart > button').button('reset');
 			},
 			success: function(json) {
 				// Need to set timeout otherwise it wont update the total
@@ -195,7 +195,7 @@ var cart = {
 				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
-					$('#cart > ul').load('index.php?route=common/cart/info ul li');
+					$('.modal-card__body').load('index.php?route=common/cart/info .modal-card__body');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {

@@ -1,0 +1,20 @@
+<div class="order__box" id="simplecheckout_shipping_address" {{ hide ? 'data-hide="true"' : '' }} {{ display_error and has_error ? 'data-error="true"' : '' }}>
+{% if display_header %}
+	<div class="order__title">
+		<div class="order__title-circle">
+			<svg class="order__title-icon">
+				<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#order-map"></use>
+			</svg>
+		</div>
+		{{ text_checkout_shipping_address }}
+	</div>
+    {% endif %}
+	<div class="order__box-container">
+  {% for row in rows %}
+      {{ row }}
+    {% endfor %}
+    {% for row in hidden_rows %}
+      {{ row }}
+    {% endfor %}
+	</div>
+</div>

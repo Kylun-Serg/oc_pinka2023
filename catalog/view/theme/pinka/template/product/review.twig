@@ -1,0 +1,57 @@
+{% if reviews %}
+	{% for review in reviews %}
+		<div class="review__item">
+			<article class="review__question">
+				<footer class="review__footer">
+					<div class="review__user">
+						<div class="review__circle">
+							<svg class="review__icon">
+								<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#review-user"></use>
+							</svg>
+						</div>
+						<div class="review__name">{{ review.author }}</div>
+					</div>
+					<div class="review__date">{{ review.date_added }}</div>
+				</footer>
+				<div class="review__content">
+					<p>{{ review.text }}</p>
+				</div>
+				<div class="review__rating">
+					Оцінка:
+					<div class="rating">
+						{% for i in 1..5 %}
+							<svg class="rating__icon">
+								<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#rating"></use>
+							</svg>
+						{% endfor %}
+					</div>
+				</div>
+			</article>
+			{# <article class="review__answer">
+        <footer class="review__footer">
+          <div class="review__user">
+            <div class="review__circle">
+              <svg class="review__icon">
+                <use xlink:href="img/icons/icons.svg#review-user"></use>
+              </svg>
+            </div>
+            <div class="review__name">Адміністратор</div>
+          </div>
+        </footer>
+        <div class="review__content">
+          <p>Хочу отметить слаженную и четкую работу всех сотрудников , с кем пришлось контактировать                            при выборе и покупке дивана
+          </p>
+        </div>
+      </article> #}
+		</div>
+	{% endfor %}
+	{{ pagination }}
+	{{ results }}
+{% else %}
+	<div class="empty-box">
+		<picture>
+			<source srcset="catalog/view/theme/pinka/assets/img/empty.webp" type="image/webp"><img class="empty-box__image" src="catalog/view/theme/pinka/assets/img/empty.png" alt="empty">
+		</picture>
+		<span class="empty-box__text">{{ text_no_reviews }}</span>
+	</div>
+{% endif %}

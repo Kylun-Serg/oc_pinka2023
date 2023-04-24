@@ -136,28 +136,28 @@ $(document).ready(function () {
 	$('[data-cart-count]').each(function () {
 		$(this).html($('.modal-card__count').text());
 	});
-});
 
+});
 
 
 let bodyLockStatus = true;
 
 const bodyLock = (delay = 500) => {
-	let body = document.querySelector("body");
-	if (bodyLockStatus) {
-		let lock_padding = document.querySelectorAll("[data-lp]");
-		for (let index = 0; index < lock_padding.length; index++) {
-			const el = lock_padding[index];
-			el.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
-		}
-		body.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
-		document.documentElement.classList.add("lock");
+  let body = document.querySelector("body");
+  if (bodyLockStatus) {
+    let lock_padding = document.querySelectorAll("[data-lp]");
+    for (let index = 0; index < lock_padding.length; index++) {
+      const el = lock_padding[index];
+      el.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
+    }
+    body.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
+    document.documentElement.classList.add("lock");
 
-		bodyLockStatus = false;
-		setTimeout(function () {
-			bodyLockStatus = true;
-		}, delay);
-	}
+    bodyLockStatus = false;
+    setTimeout(function () {
+      bodyLockStatus = true;
+    }, delay);
+  }
 };
 
 function addCardOverlay() {
@@ -165,6 +165,17 @@ function addCardOverlay() {
 	const modalCart = document.querySelector('.modal-card');
 	const overlay = document.querySelector('.modal-ovelay');
 	modalCart.classList.add('modal-card_active');
+	overlay.classList.add('modal-ovelay_active');
+	bodyLock();
+}
+
+function modalOverlay(content) {
+	/*MODAL-NOTIFICATION*/
+	const modalNotif = document.querySelector('.modal-notification');
+	const modalNotifInner = document.querySelector('.modal-notification__inner');
+	const overlay = document.querySelector('.modal-ovelay');
+	modalNotifInner.innerHTML = content;
+	modalNotif.classList.add('modal-notification_active');
 	overlay.classList.add('modal-ovelay_active');
 	bodyLock();
 }
@@ -335,7 +346,7 @@ var cart = {
 				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
-					$('#cart > ul').load('index.php?route=common/cart/info ul li');
+					$('.modal-card__body').load('index.php?route=common/cart/info .modal-card__body');
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -415,20 +426,24 @@ var wishlist = {
 			data: 'product_id=' + product_id,
 			dataType: 'json',
 			success: function (json) {
-				$('.alert-dismissible').remove();
+				// $('.alert-dismissible').remove();
 
 				if (json['redirect']) {
 					location = json['redirect'];
 				}
 
 				if (json['success']) {
-					$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					// console.log(json['success']);
+					// $('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					
+					// $('.modal-notification').addClass("modal-notification_active");
+					modalOverlay(json['success']);
 				}
 
-				$('#wishlist-total span').html(json['total']);
-				$('#wishlist-total').attr('title', json['total']);
+				$('.btn-favorite .actions-btn__count').html(json['total']);
+				// $('#wishlist-total').attr('title', json['total']);
 
-				$('html, body').animate({ scrollTop: 0 }, 'slow');
+				// $('html, body').animate({ scrollTop: 0 }, 'slow');
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

@@ -1816,11 +1816,15 @@
 
         this.removeProduct = function($target) {
             var self = this;
+            console.log(self)
             var $currentContainer = $(self.params.mainContainer).find(self.currentContainer + ":visible");
 
             var productKey = $target.attr("data-product-key");
 
+            
+
             var $target = $currentContainer.find("#simplecheckout_remove");
+            console.log($target)
             $target.val(productKey);
             self.copyCartState($target);
 

@@ -1,0 +1,46 @@
+{{ header }}
+<main class="page page__profile">
+  <div class="page__header">
+      <div class="page__container">
+        <nav class="page__bredcrumbs bredcrumbs">
+          <ol class="bredcrumbs__list">
+            {% for key, breadcrumb in breadcrumbs %}
+              {% if key + 1 < breadcrumbs|length %}
+                <li class="bredcrumbs__item">
+                  <a href="{{ breadcrumb.href }}" class="bredcrumbs__link">
+                    {{ breadcrumb.text }}
+                    <svg class="bredcrumbs__icon">
+                      <use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow"></use>
+                    </svg>
+                  </a>
+                </li>
+              {% else %}
+                <li class="bredcrumbs__item">
+                  <span class="bredcrumbs__current">
+                    {{ breadcrumb.text }}
+                  </span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ol>
+        </nav>
+      </div>
+  </div>
+  {% if success %}
+  <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
+  {% endif %}
+  <div class="profile-page">
+    <div class="profile-page__container">
+      {{ column_right }}
+      <div class="profile-page__content info-page__section">
+        <h1 class="profile-page__title">{{ text_my_account }}</h1>
+        <ol class="list-unstyled">
+          <li><a href="{{ edit }}">{{ text_edit }}</a></li>
+          <li><a href="{{ password }}">{{ text_password }}</a></li>
+          <li><a href="{{ address }}">{{ text_address }}</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</main>
+{{ footer }}

@@ -1,0 +1,43 @@
+<div class="order__box" id="simplecheckout_shipping" {{ hide ? 'data-hide="true"' : '' }} {{ display_error and has_error ? 'data-error="true"' : '' }}>
+	{% if display_header %}
+		<div class="order__title">
+			<div class="order__title-circle">
+				<svg class="order__title-icon">
+					<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#delivery"></use>
+				</svg>
+			</div>
+			{{ text_checkout_shipping_method }}
+		</div>
+	{% endif %}
+	<div class="alert alert-danger simplecheckout-warning-block" {{ display_error and has_error_shipping ? '' : 'style="display:none"' }}>{{ error_shipping }}</div>
+
+	{% if shipping_methods is not empty %}
+		<div class="radio-image__buttons">
+			{% for shipping_method in shipping_methods %}
+				{% if shipping_method['warning'] is not empty %}
+					<div class="simplecheckout-error-text">{{ shipping_method['warning'] }}</div>
+				{% endif %}
+				{% if shipping_method['error'] is empty %}
+					{% for quote in shipping_method['quote'] %}
+						<label class="radio-image__label" for="{{ quote['code'] }}">
+							<input type="radio" class="radio-image__input" data-onchange="reloadAll" name="shipping_method" {{ quote['dummy'] is not empty ? 'disabled="disabled"' : '' }} {{ quote['dummy'] is not empty ? 'data-dummy="true"' : '' }} value="{{ quote['code'] }}" id="{{ quote['code'] }}" {% if quote['code'] == code %} checked="checked" {% endif %}/>
+							{{ quote['title'] is not empty ? quote['title'] : '' }}
+							{{ quote['description'] is not empty ? ' - ' ~ quote['description'] : '' }}
+							<div class="radio-image__outline"></div>
+						</label>
+					{% endfor %}
+				{% else %}
+					<div class="simplecheckout-error-text">{{ shipping_method['error'] }}</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+		<input type="hidden" name="shipping_method_current" value="{{ code }}"/>
+		<input type="hidden" name="shipping_method_checked" value="{{ checked_code }}"/>
+	{% endif %}
+	{% if shipping_methods is empty and address_empty and display_address_empty %}
+		<div class="simplecheckout-warning-text">{{ text_shipping_address }}</div>
+	{% endif %}
+	{% if shipping_methods is empty and not address_empty %}
+		<div class="simplecheckout-warning-text">{{ error_no_shipping }}</div>
+	{% endif %}
+</div>

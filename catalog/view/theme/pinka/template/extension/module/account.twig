@@ -1,0 +1,54 @@
+<aside class="profile-page__aside aside-profile-page info-page__section">
+{% if not logged %}
+  <a href="{{ login }}" class="list-group-item">{{ text_login }}</a> <a href="{{ register }}" class="list-group-item">{{ text_register }}</a> <a href="{{ forgotten }}" class="list-group-item">{{ text_forgotten }}</a>
+{% endif %}
+
+	<img src="catalog/view/theme/pinka/assets/img/profile/user-photo.png" alt="image" class="aside-profile-page__image">
+	<div class="aside-profile-page__name">Олена Веремієнко</div>
+
+	<ul class="aside-profile-page__menu">
+		<li class="aside-profile-page__item">
+			<a href="{{ account }}" class="aside-profile-page__link">
+				<svg class="aside-profile-page__icon">
+					<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#user"></use>
+				</svg>
+        {{ text_account }}
+			</a>
+		</li>
+		<li class="aside-profile-page__item">
+			<a href="{{ order }}" class="aside-profile-page__link">
+				<svg class="aside-profile-page__icon">
+					<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#cart"></use>
+				</svg>
+        {{ text_order }}
+			</a>
+		</li>
+		<li class="aside-profile-page__item">
+			<a href="{{ wishlist }}" class="aside-profile-page__link">
+				<svg class="aside-profile-page__icon">
+					<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#favorite"></use>
+				</svg>
+        {{ text_wishlist }}
+			</a>
+		</li>
+		<li class="aside-profile-page__item">
+			<a href="{{ reward }}" class="aside-profile-page__link">
+				<svg class="aside-profile-page__icon">
+					<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#bonus"></use>
+				</svg>
+				{{ text_reward }}
+			</a>
+		</li>
+    {% if logged %}
+		<li class="aside-profile-page__item">
+			<a href="{{ logout }}" class="aside-profile-page__link">
+				<svg class="aside-profile-page__icon">
+					<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#exit"></use>
+				</svg>
+				{{ text_logout }}
+			</a>
+		</li>
+    {% endif %}
+	</ul>
+
+</aside>

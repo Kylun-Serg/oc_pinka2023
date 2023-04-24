@@ -6,7 +6,7 @@ $_['heading_title']      = 'Особистий кабінет';
 
 // Text
 $_['text_account']       = 'Особистий кабінет';
-$_['text_my_account']    = 'Обліковий запис';
+$_['text_my_account']    = 'Особисті данні';
 $_['text_my_orders']     = 'Замовлення';
 $_['text_my_affiliate']  = 'Партнерській розділ';
 $_['text_my_newsletter'] = 'Підписка';

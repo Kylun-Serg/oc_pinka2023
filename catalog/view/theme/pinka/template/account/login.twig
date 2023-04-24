@@ -4,21 +4,28 @@
 		<div class="page__container">
 			<nav class="page__bredcrumbs bredcrumbs">
 				<ol class="bredcrumbs__list">
-					<li class="bredcrumbs__item">
-						<a href="#" class="bredcrumbs__link">
-							Головна
-							<svg class="bredcrumbs__icon">
-								<use xlink:href="img/icons/icons.svg#arrow"></use>
-							</svg>
-						</a>
-					</li>
-					<li class="bredcrumbs__item">
-						<span class="bredcrumbs__current">Натуральний твердий шампунь</span>
-					</li>
+					{% for key, breadcrumb in breadcrumbs %}
+						{% if key + 1 < breadcrumbs|length %}
+							<li class="bredcrumbs__item">
+								<a href="{{ breadcrumb.href }}" class="bredcrumbs__link">
+									{{ breadcrumb.text }}
+									<svg class="bredcrumbs__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow"></use>
+									</svg>
+								</a>
+							</li>
+						{% else %}
+							<li class="bredcrumbs__item">
+								<span class="bredcrumbs__current">
+									{{ breadcrumb.text }}
+								</span>
+							</li>
+						{% endif %}
+					{% endfor %}
 				</ol>
 			</nav>
 			<div class="page__header-title">
-				<h1 class="page__title">Авторизація</h1>
+				<h1 class="page__title">{{ text_new_customer }}</h1>
 			</div>
 		</div>
 	</div>

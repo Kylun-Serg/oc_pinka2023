@@ -74,6 +74,7 @@ class ControllerExtensionModuleFeatured extends Controller
 						'special'     => $special,
 						'tax'         => $tax,
 						'rating'      => $rating,
+						'reviews' 		=> $product_info['reviews'],
 						'href'        => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
 						'options' => $options,
 					);

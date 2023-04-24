@@ -10,7 +10,7 @@ $_['button_next']                    = 'Вперед';
 
 // Text
 $_['text_cart']                      = 'Кошик';
-$_['text_checkout_customer']         = 'Покупець';
+$_['text_checkout_customer']         = 'Інофрмація про покупця';
 $_['text_checkout_customer_login']   = 'Я зареєстрований';
 $_['text_checkout_customer_cancel']  = 'Скасувати';
 $_['text_checkout_shipping_method']  = 'Спосіб доставки';

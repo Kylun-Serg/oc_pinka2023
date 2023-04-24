@@ -1,0 +1,18 @@
+<div class="order__box" id="simplecheckout_comment">
+{% if display_header %}
+	<div class="order__title">
+		<div class="order__title-circle">
+			<svg class="order__title-icon">
+				<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#order-comment"></use>
+			</svg>
+		</div>
+		{{ label }}
+	</div>
+  {% endif %}
+	<div class="order__box-container">
+		<div class="form-row">
+			<textarea name="comment" id="comment"  type="text" class="form-row__textarea" placeholder=" " data-reload-payment-form="true">{{ comment }}</textarea>
+			<label for="comment" class="form-row__label">{{ placeholder }}</label>
+		</div>
+	</div>
+</div>

@@ -34,13 +34,18 @@
 							<h3 class="product-card__title">
 								<a href="{{ product.href }}">{{ product.name }}</a>
 							</h3>
+							{% if product.rating %}
 							<div class="product-card__rating rating-card">
 								<svg class="rating-card__icon">
 									<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#rating"></use>
 								</svg>
-								5.0
-								<a href="#">(40 відгуків)</a>
+								{{product.rating}}
+								<a onclick="location='{{ product.href }}#tab-review'">( {{product.reviews}} відгуків ) </a>
 							</div>
+							{% else %}
+								<img src="catalog/view/theme/pinka/assets/img/icons/rating-off.svg" alt="">
+								( {{product.reviews}} відгуків )
+							{% endif %}
 						</div>
 						<div class="product-card__footer">
 							<div class="product-card__price">{{ product.price }}</div>

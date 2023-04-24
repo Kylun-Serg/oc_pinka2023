@@ -1,0 +1,69 @@
+{{ header }}
+<main class="page page__profile">
+	<div class="page__header">
+		<div class="page__container">
+			<nav class="page__bredcrumbs bredcrumbs">
+				<ol class="bredcrumbs__list">
+					{% for key, breadcrumb in breadcrumbs %}
+						{% if key + 1 < breadcrumbs|length %}
+							<li class="bredcrumbs__item">
+								<a href="{{ breadcrumb.href }}" class="bredcrumbs__link">
+									{{ breadcrumb.text }}
+									<svg class="bredcrumbs__icon">
+										<use xlink:href="catalog/view/theme/pinka/assets/img/icons/icons.svg#arrow"></use>
+									</svg>
+								</a>
+							</li>
+						{% else %}
+							<li class="bredcrumbs__item">
+								<span class="bredcrumbs__current">
+									{{ breadcrumb.text }}
+								</span>
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ol>
+			</nav>
+		</div>
+	</div>
+	{% if success %}
+		<div class="alert alert-success alert-dismissible">
+			<i class="fa fa-check-circle"></i>
+			{{ success }}
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+	{% endif %}
+	<div class="profile-page">
+		<div class="profile-page__container">
+			{{ column_right }}
+			<div class="profile-page__content info-page__section">
+
+				<h1 class="profile-page__title">{{ heading_title }}</h1>
+				{% if products %}
+					<div class="profile-page__favorite favorite-profile-page">
+						{% for product in products %}
+							<div class="item-profile-favorite product-card-modal">
+								{% if product.thumb %}
+									<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="product-card-modal__image"/></a>
+								{% endif %}
+								<div class="product-card-modal__content item-profile-favorite__content">
+									<a href="{{ product.href }}" class="product-card-modal__title">{{ product.name }}</a>
+									{% if product.price %}
+										<div class="product-card-modal__price">{{ product.price }}</div>
+									{% endif %}
+									<div class="item-profile-favorite__buttons">
+										<button class="btn item-profile-favorite__btn" type="button" onclick="cart.add('{{ product.product_id }}');">{{ button_cart }}</button>
+										<a href="{{ product.remove }}" class="btn item-profile-favorite__btn">{{ button_remove }}</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% else %}
+					<p>{{ text_empty }}</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}
